@@ -6,7 +6,6 @@ const PlayhtAudioPlayer = ({ word ,token}) => {
     
         const fetchAudio = async () => {
         try{
-            console.log('GetaudioFileFrom_Playht started . . . ');
         const response =await  axios.post(`${configData.SERVER_URL}/api/Home/GetaudioFileFrom_Playht?word=${word}`, {}, {
             headers: {
               'Content-Type': 'application/json',

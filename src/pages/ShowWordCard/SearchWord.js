@@ -34,7 +34,7 @@ const SearchWord = ({ token, startword, onSearch }) => {
       return null;
     }
   };
-  const FindWord = async (searchWord) => {
+  const FindWord = async () => {
     try {
       const response = await axios.post(`${configData.SERVER_URL}/api/Home/FindSearchedWord?word=${searchWord}`, {}, {
         headers: {
@@ -50,7 +50,28 @@ const SearchWord = ({ token, startword, onSearch }) => {
       setError('Error FindWord');
     }
   };
+  const FindsimiliarWords = async () => {
+    try {
+
+      const response = await axios.post(`${configData.SERVER_URL}/api/Home/FindSimiliarWordsSoundex/${searchWord}`, {}, {
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${token}`,
+        },
+      });
+      const data = response.data.data;
+      console.log(data);
+      setResult(prevState => ({
+        ...prevState,
+        similiarWords: data 
+    }));
+    } catch (error) {
+      console.error('Error FindWord:', error);
+      setError('Error FindWord');
+    }
+  };
   const handleClear = () => {
+    setinitialSearchWord('');
     setSearchWord('');
     setResult(null);
   };
@@ -63,9 +84,12 @@ const SearchWord = ({ token, startword, onSearch }) => {
     // e.preventDefault();
     setLoading(true);
 
-    await FindWord(searchWord);
+    await FindWord();
     setLoading(false);
   };
+  const handlesimiliarWords = async () => {
+    await FindsimiliarWords();
+  }
   const handleAddtoUserBox = async () => {
     window.alert('در حال انجام');
   }
@@ -75,7 +99,6 @@ const SearchWord = ({ token, startword, onSearch }) => {
   useEffect(() => {
     setSearchWord(startword);
     setinitialSearchWord(startword);
-
   }, [startword]);
 
   useEffect(() => {
@@ -83,7 +106,7 @@ const SearchWord = ({ token, startword, onSearch }) => {
       if (initialsearchWord !== '') {
         setinitialSearchWord('');
         setLoading(true);
-        await FindWord(startword);
+        await FindWord();
         setLoading(false);
       }
       setinitialSearchWord('');
@@ -142,6 +165,7 @@ const SearchWord = ({ token, startword, onSearch }) => {
                 <MDBCol className='d-flex justify-content-end'>
                   <MDBBtn type="submit" className='mt-2' color='success' size='md' onClick={handleAddtoUserBox}>اضافه کردن</MDBBtn>
                 </MDBCol>
+                
               </MDBRow>
             }
             {result.boxid === null &&
@@ -151,6 +175,9 @@ const SearchWord = ({ token, startword, onSearch }) => {
                   <MDBBtn type="submit" className='' color='success' size='md' onClick={handleAddtoBox}>اضافه کردن</MDBBtn>
                 </MDBCol>
               </MDBRow>}
+              {!result.similiarWords &&<MDBBtn type="submit" className='w-75 m-auto' color='info' size='md' onClick={handlesimiliarWords}>
+                  برای مشاهده کلمات مشابه در فرهنگ لغات کلیک کنید
+                  </MDBBtn>}
             <hr className='mt-2'></hr>
 
           </MDBRow>
