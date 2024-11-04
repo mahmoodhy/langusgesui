@@ -1,21 +1,19 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
-import { CookiesProvider, useCookies } from 'react-cookie'
-import useToken from './Operates/useToken';
-import { useEffect, useState } from "react";
+import { useCookies } from 'react-cookie'
 
+import { useEffect, useState } from "react";
+import NavBar from '../../src/Components/Layouts/Navbar';  
+import Sidebar from '../../src/Components/Layouts/Sidebar';
 const Layout = (props) => {
   const { loggedIn, pageName } = props
-  const [cookies, setCookie, removeCookie] = useCookies(['user', 'token'])
-  const { token, setToken } = useToken();
+  
   const [path, setPath] = useState('صفحه اول');
   var location = useLocation();
-  const onButtonClick = () => {
-    removeCookie('user');
-    removeCookie('token');
-    sessionStorage.clear();
-    setToken('');
-    window.location.href = '/';
-  }
+  const [isSidebarOpen, setSidebarOpen] = useState(false);  
+  const toggleSidebar = () => {  
+    setSidebarOpen(!isSidebarOpen);  
+};  
+ 
   useEffect(() => {
     if (location.pathname === "/")
       setPath('صفحه اول');
@@ -24,28 +22,23 @@ const Layout = (props) => {
   }, [location.pathname]);
   return (
     <div className="">
+      <div className="d-flex bg-light">  
+      <button className="btn btn-primary h-25" onClick={toggleSidebar}>  
+                ☰  
+            </button>  
+            {isSidebarOpen && <Sidebar />}  
+            <div className={`container-fluid ${isSidebarOpen ? 'content-expanded' : ''}`}>  
+                <NavBar loggedIn={loggedIn} toggleSidebar={toggleSidebar} />  
+                <main><Outlet /></main>  
+            </div>  
+        </div>  
       <header>
-        <div className="row bg-green-100 w-screen fixed z-1">
-          <div className="col-2"><h1>{path}</h1></div>
-
-          <div className="col-6">
-            {loggedIn ? <div>خوش آمدید {cookies.user}</div> : <div />}</div>
-          <div className="col-4">
-            <input
-              className="danger"
-              type="button"
-              onClick={onButtonClick}
-              value={loggedIn ? 'خارج شوید' : 'Log in'} 
-            /></div>
-        </div>
-
+        
+       
       </header>
-<nav>hello</nav>
 
-      <main>
-        <Outlet />
-      </main>
 
+     
     </div>
   )
 };

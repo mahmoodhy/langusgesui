@@ -7,7 +7,7 @@ import './App.css'
 import { useEffect, useState } from 'react'
 import useToken from './pages/Operates/useToken';
 import Layout from "./pages/Layout";
-import Blogs from "./pages/Blogs";
+import Statistics from "./pages/Statistics";
 import Contact from "./pages/Contact";
 import NoPage from "./pages/NoPage";
 
@@ -22,6 +22,7 @@ function App() {
         <Route path="/" element={<Layout pageName='path' loggedIn={true}/>}>
           <Route index element={<Home />} />
          
+          <Route path="Statistics" element={<Statistics />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} />
         </Route>       

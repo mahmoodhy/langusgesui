@@ -1,4 +1,5 @@
 import React from 'react';
+import CopyComponent from '../CopyComponent';
 
 const ContextMenu = ({ items, position , selectedText}) => {
     return (
@@ -8,6 +9,7 @@ const ContextMenu = ({ items, position , selectedText}) => {
                     <li key={index} onClick={item.action}>
                         {item.label}
                         {selectedText && index===0 && <span>{selectedText}</span>}
+                        {selectedText && index===1 && <h1><CopyComponent text={selectedText} ></CopyComponent></h1>}
                         <hr></hr>
                     </li>
                 ))}

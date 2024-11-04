@@ -26,7 +26,7 @@ const Home = (props) => {
   
      
       
-        <div className='container-fluid p-2'>
+        <div className='p-2'>
            <SearchWord token={cookies.token.token} startword={initialSearchText} onSearch={handleSearch}/>
 
             <ShowWordCard wordcount='20' token={cookies.token.token} onSearch={handleSearch}/>

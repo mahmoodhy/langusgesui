@@ -289,10 +289,25 @@ const ShowWordCard = ({ wordcount, token, onSearch }) => {
 
 
   useEffect(() => {
+ 
+   
+
+
+
     if (currentword.word !== null) {
       if (audioRef.current) {
         audioRef.current.load();
-        audioRef.current.play();
+        var playPromise = audioRef.current.play();
+        if (playPromise !== undefined) {
+          playPromise.then(_ => {
+            playPromise.autoPlay();
+            playPromise.pause();
+          })
+          .catch(error => {
+            // Auto-play was prevented
+            // Show paused UI.
+          });
+        }
       }
     }
 

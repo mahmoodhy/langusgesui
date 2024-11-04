@@ -94,14 +94,14 @@ const SearchWord = ({ token, startword, onSearch }) => {
 
 
   return (
-    <div className='bg-orange-300 p-2'>
+    <div className='bg-orange-300 p-1'>
       <MDBRow>
         <MDBRow>
-          <MDBInputGroup className='m-2 block'>
-            <MDBInput className='m-2' type='text' value={searchWord} placeholder="جستجو"
+          <MDBInputGroup className='block'>
+            <MDBInput className='' type='text' value={searchWord} placeholder="جستجو"
               onChange={e => setSearchWord(e.target.value)} onKeyDown={handleKeyDown} />
               {result &&
-                <PlayhtAudioPlayer word={searchWord} token={token}/>
+                <PlayhtAudioPlayer className='' word={searchWord} token={token}/>
                 }
             <MDBBtn outline color='danger' size='sm' className="close-icon rounded-pill" onClick={handleClear}>
               <MDBIcon fas icon='times' />

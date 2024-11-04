@@ -31,7 +31,7 @@ const PlayhtAudioPlayer = ({ word ,token}) => {
    
 
     return (
-        <div>
+        <div className='mt-2'>
             <audio ref={audioRef} controls />
         </div>
     );

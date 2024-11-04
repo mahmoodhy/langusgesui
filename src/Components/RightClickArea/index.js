@@ -5,10 +5,11 @@ const RightClickArea = ({ children, onSearch }) => {
     const [menuVisible, setMenuVisible] = useState(false);
     const [menuPosition, setMenuPosition] = useState({ x: 0, y: 0 });
     const [selectedText, setSelectedText] = useState('');
-  
+
+
     const menuItems = [
         { label: 'جستجوی معنی لغت : ', action: () => handleClickme() },
-        { label: 'کپی           Copy', action: () => handleClickCopy() },
+        {  },
     ];
 
     const handleContextMenu = (event) => {
@@ -39,10 +40,7 @@ const RightClickArea = ({ children, onSearch }) => {
         onSearch(selectedText);
         window.scrollTo(0, 0)
     };
-    const handleClickCopy = () => {
-        const selection = window.getSelection().toString();
-        navigator.clipboard.writeText(selection)       
-    };
+    
 
     return (
         <div onContextMenu={handleContextMenu} onClick={handleClick}>
@@ -50,6 +48,8 @@ const RightClickArea = ({ children, onSearch }) => {
             {menuVisible && <ContextMenu items={menuItems} position={menuPosition} selectedText={selectedText} />}
         </div>
     );
+
+   
 };
 
 export default RightClickArea;
