@@ -66,8 +66,8 @@ const SearchWord = ({ token, startword, onSearch }) => {
         similiarWords: data 
     }));
     } catch (error) {
-      console.error('Error FindWord:', error);
-      setError('Error FindWord');
+      console.error('Error FindsimiliarWords:', error);
+      setError('Error FindsimiliarWords');
     }
   };
   const handleClear = () => {

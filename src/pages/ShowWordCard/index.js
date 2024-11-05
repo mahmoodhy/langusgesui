@@ -17,7 +17,7 @@ import {
 
 
 
-const ShowWordCard = ({ wordcount, token, onSearch }) => {
+const ShowWordCard = ({ token, onSearch }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [process, setProcess] = useState('');
   const [cookies] = useCookies(['token'])
@@ -204,13 +204,32 @@ const ShowWordCard = ({ wordcount, token, onSearch }) => {
     sessionStorage.setItem('myremainingWordIds', remainingWordIds);
   }, [remainingWordIds]);
   useEffect(() => {
+    console.log('currentword changed : '+currentword)
+    if (currentword==null || Object.keys(currentword).length === 0)
+    {
+      setIsOpen(false);
+      setRemainingWordIds([]);
+      refreshPage();
+    }
+    else
+    {
     sessionStorage.setItem('currentword', JSON.stringify(currentword));
     fetchSimiliarWords(currentword.word);
 
     setLoading(false);
+    }
     //console.log(currentword);
   }, [currentword]);
-
+  const refreshPage=async() => {
+    setSimiliarWords(null);
+    setLoading(true);
+    
+      if (remainingWordIds.length <2) {
+        await startNewDay(false);
+      }
+      await fetchRemainingWordIds();
+    
+  };
   useEffect(() => {
     setSimiliarWords(null);
 
@@ -356,11 +375,13 @@ const ShowWordCard = ({ wordcount, token, onSearch }) => {
 
 
 
-                  <MeaningWord currentword={currentword}
+                  <MeaningWord 
+                  setCurrentWord={setCurrentWord} 
+                    currentword={currentword}                    
+                    toggleCollapse={toggleCollapse}
                     handleLearnWord={handleLearnWord}
                     handleNotLearnWord={handleNotLearnWord}
-                    toggleCollapse={toggleCollapse}
-                    isOpen={isOpen} ></MeaningWord>
+                    isOpen={isOpen} token={token} ></MeaningWord>
                   {isOpen &&
                     <div><br></br><br></br><br></br><br></br><br></br></div>
                   }

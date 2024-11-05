@@ -22,8 +22,8 @@ function App() {
         <Route path="/" element={<Layout pageName='path' loggedIn={true}/>}>
           <Route index element={<Home />} />
          
-          <Route path="Statistics" element={<Statistics />} />
-          <Route path="contact" element={<Contact />} />
+          <Route path="/Statistics" element={<Statistics />} />
+          <Route path="/contact" element={<Contact />} />
           <Route path="*" element={<NoPage />} />
         </Route>       
       </Routes>
