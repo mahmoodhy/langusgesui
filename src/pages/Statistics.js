@@ -6,8 +6,9 @@ import { useCookies } from 'react-cookie';
 
 
 const Statistics = () => {
-  const [lables, setLabels] = useState(['Appele', 'Banana', 'Cherry', 'Date']);
-  const [series, setSeries] = useState([44, 55, 13, 43]);
+  const [lables, setLabels] = useState([]);
+  const [series, setSeries] = useState([]);
+
   const [cookies] = useCookies(['token'])
   const [Error, setError] = useState('');
   const [totalSum, setTotalSum] = useState(0);
@@ -47,10 +48,10 @@ const Statistics = () => {
 
       const total = newSeries.reduce((acc, count) => acc + count, 0);
       const partial = sortedData
-      .filter(item => ["لغات جدید", "جعبه روز اول"].includes(item.label))
-      .reduce((acc, item) => acc + item.boxCount, 0);
-  setPartialSum(partial);
-        setTotalSum(total);
+        .filter(item => ["لغات جدید", "جعبه روز اول"].includes(item.label))
+        .reduce((acc, item) => acc + item.boxCount, 0);
+      setPartialSum(partial);
+      setTotalSum(total);
       setLabels(newLabels);
       setSeries(newSeries);
     } catch (error) {
@@ -90,9 +91,9 @@ const Statistics = () => {
 
       <PieCharts lables={lables} series={series} titletext={'لغات فراگرفته شده'}></PieCharts>
       <h3>Total Sum of All Labels:</h3>
-            <p>{totalSum}</p>
-            <h3>Partial Sum of "newones" and "firstday":</h3>
-            <p>{partialSum}</p>
+      <p>{totalSum}</p>
+      <h3>Partial Sum of "newones" and "firstday":</h3>
+      <p>{partialSum}</p>
 
     </div>)
 };

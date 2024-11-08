@@ -8,16 +8,12 @@ import MeaningWord from './components/meaningWord';
 import configData from "../../config.json";
 import { useCookies } from 'react-cookie';
 import RightClickArea from '../../../src/Components/RightClickArea';
-import {
-  MDBTable, MDBTableHead, MDBTableBody, MDBSpinner, MDBBtn, MDBCollapse,
-  MDBRow,
-  MDBCol
-}
-  from 'mdb-react-ui-kit';
-
+import { Button, Col,Row,Alert } from 'react-bootstrap';
+import AudioPlayer from '../../../src/Components/AudioPlayer'
 
 
 const ShowWordCard = ({ token, onSearch }) => {
+  const [show, setShow] = useState(true); 
   const [isOpen, setIsOpen] = useState(false);
   const [process, setProcess] = useState('');
   const [cookies] = useCookies(['token'])
@@ -251,6 +247,7 @@ const ShowWordCard = ({ token, onSearch }) => {
   useEffect(() => {
     const initialize = async () => {
       console.log('fetchRandomWord . . . ');
+      console.log('remainingWordIds.length , currentword.word  '+remainingWordIds.length +'  ,  '+currentword.word);
       if (remainingWordIds.length > 0) {
         if (currentword.word === undefined || currentword.word === null) {
           console.log('fetchRandomWord . . . Started');
@@ -352,26 +349,33 @@ const ShowWordCard = ({ token, onSearch }) => {
       {/*  {process && <p>{process}</p>} */}
       {remainingWordIds && <p>لغات باقیمانده امروز: {remainingWordIds.length}</p>}
       {!messages && loading && <p>Loading...</p>}
-      {messages && <p>{messages}<MDBBtn onClick={habdlestartdaybyForce}>لغات بیشتری برای امروز</MDBBtn></p>}
+      {messages && <p>{messages}<Button onClick={habdlestartdaybyForce}>لغات بیشتری برای امروز</Button></p>}
       {
-        Error && <p> خطایی رخ داد : {Error}</p>}
+        Error && <p> 
+         <Alert show={show} variant="danger" onClose={() => setShow(false)} dismissible>  
+         خطایی رخ داد : {Error}
+    </Alert>  
+        
+        </p>}
       <div className='row justify-content-center'>
         {!messages && !loading &&
           <div>
             <RightClickArea children={
-              <MDBRow>
-                <MDBCol>
+              <Row>
+                <Col>
 
                   <div className='row'>
                     <div className='col-6'> <h1 className='text-3xl'>کلمه : {currentword.word}</h1></div>
-                    <div className='col-6'><span className='text-blue-500'> روز: </span>{currentword.dayNo} ام</div>
+                    <div className='col-3'> {currentword.audioFile &&  <AudioPlayer src={`${configData.SERVER_URL}/audioFiles${currentword.audioFile}`} />
+                    // <audio controls autoPlay ref={audioRef}>
+                    //   <source src={`${configData.SERVER_URL}/audioFiles${currentword.audioFile}`} type="audio/mpeg" />
+                    //   Your browser does not support the audio element.
+                    // </audio>
+                    }</div>
+                    <div className='col-3'><span className='text-blue-500'> روز: </span>{currentword.dayNo} ام</div>
                   </div>
 
-                  {currentword.audioFile &&
-                    <audio controls autoPlay ref={audioRef}>
-                      <source src={`${configData.SERVER_URL}/audioFiles${currentword.audioFile}`} type="audio/mpeg" />
-                      Your browser does not support the audio element.
-                    </audio>}
+                 
 
 
 
@@ -387,14 +391,14 @@ const ShowWordCard = ({ token, onSearch }) => {
                   }
                    <Yourexample currentword={currentword}></Yourexample>
                   <SimiliarWords similiarWords={similiarWords}></SimiliarWords>
-                </MDBCol>
-                <MDBCol>
+                </Col>
+                <Col>
 
 
                  
-                  <ApiDictionary meanings={currentword.meanings} onSearch={handlesearch}></ApiDictionary>
-                </MDBCol>
-              </MDBRow>
+                  <ApiDictionary meanings={currentword.meanings}></ApiDictionary>
+                </Col>
+              </Row>
             } onSearch={handlesearch} />
 
 

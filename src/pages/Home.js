@@ -4,11 +4,12 @@ import Login from '../Login'
 import { CookiesProvider, useCookies } from 'react-cookie'
 import ShowWordCard from './ShowWordCard/index'
 import SearchWord from './ShowWordCard/SearchWord'
+import { Container } from 'react-bootstrap';
 
 
 
 
-const Home = (props) => {
+const Home = ({onSearch}) => {
   const [initialSearchText, setInitialSearchText] = useState('');
   const [cookies, setCookie, removeCookie] = useCookies(['user', 'token'])
   const { token, setToken } = useToken();
@@ -19,20 +20,17 @@ const Home = (props) => {
     setToken('');
     window.location.href = '/';
   }
-  const handleSearch = (word) => {
-    setInitialSearchText(word);
+  const handleSearch = async(word) => {
+    onSearch(word);
   };
   return (
   
      
       
-        <div className='p-2'>
-           <SearchWord token={cookies.token.token} startword={initialSearchText} onSearch={handleSearch}/>
+        <Container fluid>
+            <ShowWordCard wordcount='20' token={cookies.token.token} onSearch={handleSearch}/>        
 
-            <ShowWordCard wordcount='20' token={cookies.token.token} onSearch={handleSearch}/>
-          
-
-          </div>
+          </Container>
      
 
        

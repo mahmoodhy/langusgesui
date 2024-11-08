@@ -1,17 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import configData from "../../../config.json";
 import { useCookies } from 'react-cookie'
-
+import { Button, Form ,Row,Col,Tooltip,OverlayTrigger  } from 'react-bootstrap';
 import axios from 'axios';
-import {
-    MDBBtn,
-    MDBInput,
-    MDBRow,
-    MDBTooltip,
-    MDBCol, MDBCard, MDBCardBody,
-    MDBCardFooter
-} from 'mdb-react-ui-kit';
-import { MDBIcon } from 'mdb-react-ui-kit';
+
 
 const EditYourMeaning = ({ currentword }) => {
 
@@ -56,36 +48,35 @@ const EditYourMeaning = ({ currentword }) => {
 
 
             {!isEditMainmeaning &&
-                <MDBRow className='border mt-2 bg-gray-100 rounded-pill'>
-                    <MDBCol><span className='text-blue-500'>ترجمه شما : </span>{MeaningValue}</MDBCol>
-                    <MDBCol className='d-flex justify-content-end'>
-                        <MDBTooltip tag='span' title='ویرایش'>
+                <Row className='border mt-2 bg-gray-100 rounded-pill'>
+                    <Col><span className='text-blue-500'>ترجمه شما : </span>{MeaningValue}</Col>
+                    <Col className='d-flex justify-content-end'>
+                    <OverlayTrigger overlay={<Tooltip>ویرایش</Tooltip>}>
 
-                            <MDBBtn className='rounded-pill ' color='success' onClick={handleStartEditMainmeaning}> <MDBIcon far icon="edit" /></MDBBtn>
-                        </MDBTooltip>
+                            <Button className='rounded-pill ' variant='success' onClick={handleStartEditMainmeaning}> <i class="fa-solid fa-pen-to-square"></i></Button>
+                            </OverlayTrigger>
 
-                    </MDBCol></MDBRow>
+                    </Col></Row>
             }
             {isEditMainmeaning &&
 
-                <MDBRow className='border mt-2 bg-gray-100 rounded-pill'>
-                    <MDBCol>
+                <Row className='border mt-2 bg-gray-100 rounded-pill'>
+                    <Col>
                         <span className='text-blue-500'>ترجمه شما : </span>
-                        <MDBInput id='form4Example1' value={MeaningValue} onChange={e => setMeaningValue(e.target.value)} />
+                        <Form.Control id='form4Example1' value={MeaningValue} onChange={e => setMeaningValue(e.target.value)} />
 
-                    </MDBCol>
-                    <MDBCol className='d-flex justify-content-end'>
-                    <MDBTooltip tag='span' title='ذخیره'>
-                        <MDBBtn className='rounded-pill' color='info' onClick={handleSaveEditmeaning} >
-                            <MDBIcon fas icon="save" />
-                        </MDBBtn>
-                        </MDBTooltip>
-                        <MDBTooltip tag='span' title='انصراف'>
-                            <MDBBtn className='rounded-pill ' color='danger' onClick={handleCancelSave}> 
-                            <MDBIcon fas icon="ban" />
-                                </MDBBtn>
-                        </MDBTooltip>
-                    </MDBCol></MDBRow>
+                    </Col>
+                    <Col className='d-flex justify-content-end'>
+                    <OverlayTrigger overlay={<Tooltip>ذخیره</Tooltip>}>
+                        <Button className='rounded-pill' variant='info' onClick={handleSaveEditmeaning} >
+                        <i class="fa-solid fa-floppy-disk"></i>
+                        </Button>
+                        </OverlayTrigger><OverlayTrigger overlay={<Tooltip>انصراف</Tooltip>}>
+                            <Button className='rounded-pill ' variant='danger' onClick={handleCancelSave}> 
+                            <i class="fa-solid fa-ban"></i>
+                                </Button>
+                                </OverlayTrigger>
+                    </Col></Row>
 
             }
 

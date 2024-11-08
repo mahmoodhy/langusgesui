@@ -4,15 +4,8 @@ import loggedIn from '../pages/Home'
 import configData from "../../src/config.json";
 import pic from '../Learning-English-Made-Easier-Tips-To-Follow-2-1.jpg'
 import { CookiesProvider, useCookies } from 'react-cookie'
-import {
-  MDBBtn,
-  MDBContainer,
-  MDBRow,
-  MDBCol,
-  MDBIcon,
-  MDBInput
-}
-from 'mdb-react-ui-kit';
+import { Button, Form ,Row,Col, Container } from 'react-bootstrap';
+
 
 
 async function loginUser(credentials) {
@@ -75,14 +68,13 @@ export default function Login({ setToken }) {
   return (
 
    
-      <MDBContainer fluid>
-        <MDBRow>
+      <Container fluid>
+        <Row>
   
-          <MDBCol sm='6'>
+          <Col sm='6'>
   
             <div className='d-flex flex-row ps-5 pt-5'>
-            <MDBIcon fas icon="language fa-3x me-3" style={{ color: '#709085' }} />
-              {/* <MDBIcon fas icon="crow fa-3x me-3" style={{ color: '#709085' }}/> */}
+            <i class="fa-solid fa-language me-3 fa-3x" style={{ color: '#709085' }}></i>
               <span className="h1 fw-bold mb-0">جعبه لایتنر</span>
             </div>
   
@@ -91,29 +83,29 @@ export default function Login({ setToken }) {
               <h3 className="fw-normal mb-3 ps-5 pb-3" style={{letterSpacing: '1px'}}>ورود</h3>
               {loading && <h1>در حال بررسی دسترسی کاربر</h1>}
               {!loading &&
-              <form onSubmit={handleSubmit}>
+              <Form onSubmit={handleSubmit}>
 
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' label='نام کاربری' id='formControlLg' type='text' size="lg" 
+              <Form.Control className='mb-4 mx-5 w-100' label='نام کاربری' id='formControlLg' type='text' size="lg" 
               onChange={e => setUserName(e.target.value)} />
-              <MDBInput wrapperClass='mb-4 mx-5 w-100' label='کلمه عبور' id='formControlLg' type='password' size="lg"
+              <Form.Control className='mb-4 mx-5 w-100' label='کلمه عبور' id='formControlLg' type='password' size="lg"
               onChange={e => setPassword(e.target.value)} />
   
-              <MDBBtn type="submit" className="mb-4 px-5 mx-5 w-100" color='info' size='lg'>وارد شوید</MDBBtn>
+              <Button type="submit" className="mb-4 mx-5 w-100" variant='info' size='lg'>وارد شوید</Button>
               <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="#!">رمز عبور را فراموش کردید?</a></p>
               <p className='ms-5'>تا به حال ثبت نام نکردید ؟ <a href="#!" class="link-info">ثبت نام کنید</a></p>
-              </form>}
+              </Form>}
             </div>
   
-          </MDBCol>
+          </Col>
   
-          <MDBCol sm='6' className='d-none d-sm-block px-0'>
+          <Col sm='6' className='d-none d-sm-block px-0'>
             <img src={pic}
               alt="Login image" className="w-100" style={{objectFit: 'cover', objectPosition: 'left'}} />
-          </MDBCol>
+          </Col>
   
-        </MDBRow>
+        </Row>
   
-      </MDBContainer> 
+      </Container> 
    
 
 

@@ -5,11 +5,23 @@ import Chart from 'react-apexcharts';
 const PieChart = ({lables,series,titletext}) => {
   const state = {
     options: {
-      chart: {        
+      dataLabels: {
+        enabled: true,
+        },
+      chart: { 
+        fill: {
+          type: "gradient",
+          gradient: {
+            shadeIntensity: 1,
+            opacityFrom: 0.7,
+            opacityTo: 0.9,
+            stops: [0, 90, 100]
+          }
+        },
         id: '',
         toolbar: {
           show: true,
-        },
+        }, 
         animations: {
           enabled: true,
           speed: 800,
@@ -52,6 +64,7 @@ const PieChart = ({lables,series,titletext}) => {
       <Chart
         options={state.options}
         series={state.series}
+        
         type="pie" // Specify the chart type as 'pie'
         height={550}
       />

@@ -1,12 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import {
-    MDBBtn,
-    MDBCollapse,
-    MDBRow,
-    MDBCardHeader,
-    MDBSpinner, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBTable,
-    MDBCardFooter
-} from 'mdb-react-ui-kit';
+import { Button, Card ,Accordion   } from 'react-bootstrap';
 import RightClickArea from '../../../../src/Components/RightClickArea';
 import zIndex from '@mui/material/styles/zIndex';
 const ApiDictionary = (props) => {
@@ -24,16 +17,16 @@ const ApiDictionary = (props) => {
                 // const hasDefinitions = meaning.definitions.some(definition => definition.definition);
 
                 return (
-                    <MDBCard key={meaning.id}>
-                        <MDBCardHeader className='text-center bg-green-200'>
-                            <MDBBtn onClick={toggleFirst}>
+                    <Card key={meaning.id}>
+                        <Card.Header className='text-center bg-green-200'>
+                            <Button onClick={toggleFirst}>
                                 {meaning.partOfSpeech === 'noun' ? 'noun(اسم)'
                                     : meaning.partOfSpeech === 'verb' ? 'verb(فعل)' : meaning.partOfSpeech === 'adverb' ? 'adverb(قید)'
                                         : meaning.partOfSpeech === 'adjective' ? 'adjective(صفت)' : meaning.partOfSpeech}
-                            </MDBBtn>
-                        </MDBCardHeader>
-                        <MDBCollapse open={showFirst} className='mt-3'>
-                            <MDBCardBody className='bg-blue-200'>
+                            </Button>
+                        </Card.Header>
+                        <Accordion  open={showFirst} className='mt-3'>
+                            <Card.Body className='bg-blue-200'>
                                
 
                                                 {meaning.definitions.map((definition) => (
@@ -46,9 +39,9 @@ const ApiDictionary = (props) => {
                                                
                                        
                                 
-                            </MDBCardBody>
-                        </MDBCollapse>
-                    </MDBCard>
+                            </Card.Body>
+                        </Accordion >
+                    </Card>
                 );
             })}
 

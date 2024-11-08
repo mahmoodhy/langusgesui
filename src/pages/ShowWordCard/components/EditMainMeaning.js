@@ -1,14 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import {
-    MDBBtn,
-    MDBInput,
-    MDBRow,
-    MDBTooltip,
-    MDBCol, MDBCard, MDBCardBody,
-    MDBCardFooter
-} from 'mdb-react-ui-kit';
-import { MDBIcon } from 'mdb-react-ui-kit';
+import { Button, Form ,Row,Col,Tooltip,OverlayTrigger  } from 'react-bootstrap';
+
 
 const EditMainMeaning = ({ currentword }) => {
     
@@ -38,29 +31,31 @@ const EditMainMeaning = ({ currentword }) => {
 
 
             {!isEditMainmeaning &&
-                <MDBRow className='border mt-2 bg-gray-100 rounded-pill'>
-                    <MDBCol><span className='text-blue-500'>معنی فارسی : </span>{mainMeaningValue}</MDBCol>
-                    <MDBCol className='d-flex justify-content-end'>
-                    <MDBTooltip tag='span' title='ویرایش'>
+                <Row className='border mt-2 bg-gray-100 rounded-pill'>
+                    <Col><span className='text-blue-500'>معنی فارسی : </span>{mainMeaningValue}</Col>
+                    <Col className='d-flex justify-content-end'>
+                    <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">ویرایش</Tooltip>}>
       
-                        <MDBBtn className='rounded-pill ' color='success' onClick={handleStartEditMainmeaning}> <MDBIcon far icon="edit" /></MDBBtn>
-                        </MDBTooltip>
-                        <MDBTooltip tag='span' title='گزارش خطا'>
-                        <MDBBtn className='rounded-pill ' color='warning' onClick={handleSendReport}> <MDBIcon fas icon="exclamation-triangle" /></MDBBtn>
-                        </MDBTooltip>
-                    </MDBCol></MDBRow>
+                        <Button className='rounded-pill ' variant='success' onClick={handleStartEditMainmeaning}> <i class="fa-solid fa-pen-to-square"></i></Button>
+                        </OverlayTrigger>
+                        <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">گزارش خطا</Tooltip>}>
+                        <Button className='rounded-pill ' variant='warning' onClick={handleSendReport}> <i class="fa-sharp fa-regular fa-flag"></i></Button>
+                        </OverlayTrigger>
+                        
+ 
+                    </Col></Row>
             }
             {isEditMainmeaning &&
 
-                <MDBRow className='border mt-2 bg-gray-100 rounded-pill'>
-                    <MDBCol>
+                <Row className='border mt-2 bg-gray-100 rounded-pill'>
+                    <Col>
                         <span className='text-blue-500'>معنی فارسی : </span>
-                        <MDBInput id='form4Example1' value={mainMeaningValue} onChange={e => setMainMeaningValue(e.target.value)} />
+                        <Form.Control id='form4Example1' value={mainMeaningValue} onChange={e => setMainMeaningValue(e.target.value)} />
 
-                    </MDBCol>
-                    <MDBCol className='d-flex justify-content-end'>
-                        <MDBBtn className='rounded-pill' color='danger' onClick={handleSaveEditMainmeaning} >ذخیره <MDBIcon far icon="edit" /></MDBBtn>
-                    </MDBCol></MDBRow>
+                    </Col>
+                    <Col className='d-flex justify-content-end'>
+                        <Button className='rounded-pill' variant='danger' onClick={handleSaveEditMainmeaning} >ذخیره <i class="fa-solid fa-pen-to-square"></i></Button>
+                    </Col></Row>
 
             }
 

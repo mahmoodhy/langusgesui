@@ -1,16 +1,13 @@
 
 import React, { useState, useEffect, useRef } from 'react';
-import {
-    MDBTable, MDBTableHead, MDBTableBody, MDBSpinner, MDBBtn, MDBCollapse
-}
-    from 'mdb-react-ui-kit';
+
+import { Button,Table,Spinner,Accordion   } from 'react-bootstrap';
 
 
 const SimiliarWords = (props) => {
     const { similiarWords } = props;
 
-    const [showFirst, setShowFirst] = useState(false);
-    const toggleFirst = () => setShowFirst(!showFirst);
+    
 
     return (
 
@@ -19,24 +16,27 @@ const SimiliarWords = (props) => {
 
            
             
-                <MDBBtn onClick={toggleFirst}><span>مشاهده کلمات مشابه</span></MDBBtn>
+                {/* <Button onClick={toggleFirst}><span>مشاهده کلمات مشابه</span></Button> */}
                
                
-            <MDBCollapse open={showFirst} className='mt-3'>
+                <Accordion defaultActiveKey="0">
+      <Accordion.Item eventKey="1">
+        <Accordion.Header><span>مشاهده کلمات مشابه</span></Accordion.Header>
+        <Accordion.Body>
             {!similiarWords &&
-                    <MDBSpinner role='status'>
+                    <Spinner role='status'>
                         <span className='visually-hidden'>Loading...</span>
-                    </MDBSpinner>
+                    </Spinner>
                 }
             {similiarWords &&
-                <MDBTable striped>
-                    <MDBTableHead>
+                <Table striped>
+                    <thead>
                         <tr>
                             <th scope='col'>کلمه مشابه</th>
                             <th scope='col'>معنی</th>
                         </tr>
-                    </MDBTableHead>
-                    <MDBTableBody>
+                    </thead>
+                    <tbody>
 
                         {similiarWords &&
                             similiarWords.map((similiarWord) => (
@@ -44,9 +44,11 @@ const SimiliarWords = (props) => {
                             ))
                         }
 
-                    </MDBTableBody>
-                </MDBTable>}
-            </MDBCollapse>
+                    </tbody>
+                </Table>}
+                </Accordion.Body>
+      </Accordion.Item>
+    </Accordion>
         </div>
     );
 

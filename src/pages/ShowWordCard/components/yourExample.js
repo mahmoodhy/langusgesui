@@ -2,14 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 import configData from "../../../config.json";
 import { useCookies } from 'react-cookie'
 import axios from 'axios';
-import {
-    MDBBtn,
-    MDBInput,
-    MDBRow,
-    MDBCardHeader,
-    MDBCol, MDBSpinner, MDBCard, MDBCardBody, MDBCardTitle, MDBCardText, MDBTextArea , MDBTableHead, MDBTableBody,
-    MDBCardFooter
-} from 'mdb-react-ui-kit';
+import { Button, Card ,Form   } from 'react-bootstrap';
+
 const YourExample = ({ currentword }) => {
     
     const [isEditing, setisEditing] = useState(false);
@@ -48,31 +42,31 @@ const YourExample = ({ currentword }) => {
 
         <div>
             {inputValue && !isEditing &&
-                <MDBCard alignment='center' className="mt-2 bg-light border">
-                    <MDBCardHeader className='text-blue-500'>مثال شما</MDBCardHeader>
-                    <MDBCardBody>
-                        <MDBCardText className="text-start"><p style={{whiteSpace: 'pre-line'}}>{inputValue}</p></MDBCardText>
-                    </MDBCardBody>
-                    <MDBCardFooter><MDBBtn onClick={addMyExample}>مثال جدید اضافه کنید</MDBBtn></MDBCardFooter>
-                </MDBCard>
+                <Card alignment='center' className="mt-2 bg-light border">
+                    <Card.Header className='text-blue-500'>مثال شما</Card.Header>
+                    <Card.Body>
+                        <Card.Text className="text-start"><p style={{whiteSpace: 'pre-line'}}>{inputValue}</p></Card.Text>
+                    </Card.Body>
+                    <Card.Footer><Button onClick={addMyExample}>مثال جدید اضافه کنید</Button></Card.Footer>
+                </Card>
             }
             {inputValue && isEditing &&
-                <MDBCard alignment='center' className="mt-2 bg-light border">
-                    <MDBCardHeader className='text-blue-500'>مثال شما</MDBCardHeader>
-                    <MDBCardBody>
-                        <MDBCardText className="text-start"><MDBTextArea  value={inputValue} onChange={e => setInputValue(e.target.value)} /></MDBCardText>
-                    </MDBCardBody>
-                    <MDBCardFooter><MDBBtn onClick={saveMyExample} color='success'>ذخیره</MDBBtn><MDBBtn onClick={cancelSaving} color='danger'>انصراف</MDBBtn></MDBCardFooter>
-                </MDBCard>
+                <Card alignment='center' className="mt-2 bg-light border">
+                    <Card.Header className='text-blue-500'>مثال شما</Card.Header>
+                    <Card.Body>
+                        <Card.Text className="text-start"><Form.Text  value={inputValue} onChange={e => setInputValue(e.target.value)} /></Card.Text>
+                    </Card.Body>
+                    <Card.Footer><Button onClick={saveMyExample} color='success'>ذخیره</Button><Button onClick={cancelSaving} color='danger'>انصراف</Button></Card.Footer>
+                </Card>
             }
            <div className="text-center"> 
             {!inputValue && !isEditing &&
-                <MDBBtn outline rounded className='mt-auto' color='info' onClick={addMyExample}>مثال خودتان را اضافه کنید</MDBBtn>
+                <Button outline rounded className='mt-auto' color='info' onClick={addMyExample}>مثال خودتان را اضافه کنید</Button>
             }
              {!inputValue && isEditing && <>
-                <MDBInput  value={inputValue} onChange={e => setInputValue(e.target.value)} />
+                <Form.Control  value={inputValue} onChange={e => setInputValue(e.target.value)} />
 
-                <MDBBtn outline rounded className='mt-auto' color='info' onClick={saveMyExample}>ذخیره</MDBBtn>
+                <Button outline rounded className='mt-auto' color='info' onClick={saveMyExample}>ذخیره</Button>
                 </>
             }
             </div>

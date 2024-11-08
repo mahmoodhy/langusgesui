@@ -3,15 +3,8 @@ import axios from 'axios';
 import EditMainMeaning from "./EditMainMeaning";
 import EditYourMeaning from './EditYourMeaning';
 import configData from "../../../../src/config.json";
-import {
-    MDBBtn,
-    MDBInput,
-    MDBRow,
-    MDBCardHeader,
-    MDBCol, MDBCard, MDBCardBody,
-    MDBCardFooter
-} from 'mdb-react-ui-kit';
-import { MDBIcon } from 'mdb-react-ui-kit';
+import { Button, Card ,Row,Col   } from 'react-bootstrap';
+
 
 const MeaningWord = ({setCurrentWord,currentword,handleLearnWord,handleNotLearnWord, toggleCollapse, isOpen,token }) => {
     const [isFullyLearnWordClicked, setFullyLearnWordClicked] = useState(false);    
@@ -49,52 +42,52 @@ const MeaningWord = ({setCurrentWord,currentword,handleLearnWord,handleNotLearnW
 
     };
     return (
-        <MDBRow>
-            <MDBCard>
-                <MDBCardHeader>
+        <Row>
+            <Card>
+                <Card.Header>
 
-                    {!isOpen && <MDBBtn rounded className='mx-2 m-2 w-100' color='secondary' onClick={toggleCollapse}>مشاهده معنی   <MDBIcon fas icon="expand" />    </MDBBtn>}
-                    {isOpen && <MDBBtn rounded className='mx-2 m-2 w-100' color='secondary' onClick={toggleCollapse}>مخفی کردن محتوا    <MDBIcon fas icon="compress" /> </MDBBtn>}
+                    {!isOpen && <Button rounded className='mx-2 m-2 w-100' color='secondary' onClick={toggleCollapse}>مشاهده معنی   <i fas icon="expand" />    </Button>}
+                    {isOpen && <Button rounded className='mx-2 m-2 w-100' color='secondary' onClick={toggleCollapse}>مخفی کردن محتوا    <i fas icon="compress" /> </Button>}
 
-                </MDBCardHeader>
+                </Card.Header>
                 {isOpen && (
                     <div id="Meanings">
-                        <MDBCardBody>
-                            <MDBRow>
-                                <MDBCol>
-                                    <MDBBtn className='mx-2 w-75' color='success' onClick={handleLearnWord}>یاد گرفتم <MDBIcon fas icon="check" /></MDBBtn>
-                                </MDBCol>
-                                <MDBCol>
-                                    <MDBBtn className='mx-2 w-75' color='danger' onClick={handleNotLearnWord}>معنیش رو نمیدونستم <MDBIcon fas icon="times" /></MDBBtn>
-                                </MDBCol>
-                            </MDBRow>
+                        <Card.Body>
+                            <Row>
+                                <Col>
+                                    <Button className='mx-2 w-75' variant='success' onClick={handleLearnWord}>یاد گرفتم <i class="fa-duotone fa-solid fa-check"></i></Button>
+                                </Col>
+                                <Col>
+                                    <Button className='mx-2 w-75' variant='danger' onClick={handleNotLearnWord}>معنیش رو نمیدونستم <i icon="times" /></Button>
+                                </Col>
+                            </Row>
                             
                             <EditMainMeaning currentword={currentword.farsi} ></EditMainMeaning>
                             <EditYourMeaning currentword={currentword} ></EditYourMeaning>
 
-                            <MDBRow className='border mt-2 bg-gray-100 rounded-pill'>
-                                <MDBCol><span className='text-blue-500'>ترجمه گوگل: </span>{currentword.gtAnswer}</MDBCol>
-                                <MDBCol className='d-flex justify-content-end'>
-                                    <MDBBtn className='rounded-pill' color='success'>ویرایش <MDBIcon far icon="edit" /></MDBBtn>
-                                </MDBCol>
-                            </MDBRow>
+                            <Row className='border mt-2 bg-gray-100 rounded-pill'>
+                                <Col><span className='text-blue-500'>ترجمه گوگل: </span>{currentword.gtAnswer}</Col>
+                                <Col className='d-flex justify-content-end'>
+                                    <Button className='rounded-pill' variant='success'>ویرایش <i class="fa-solid fa-pen-to-square"></i></Button>
+                                </Col>
+                            </Row>
 
-                        </MDBCardBody>
-                        <MDBCardFooter>
-                            <MDBBtn className='mx-2 w-100' color='info' onClick={handleFullyLearnWordClicked}>این لغت رو بلدم<MDBIcon fas icon="check-double" /></MDBBtn>
+                        </Card.Body>
+                        <Card.Footer>
+                            <Button className='mx-2 w-100' variant='info' onClick={handleFullyLearnWordClicked}>این لغت رو بلدم<i class="fa-duotone fa-solid fa-check-double"></i></Button>
                             {isFullyLearnWordClicked && <><div>این لغت به لغات فراگرفته شما منتقل می شود و دیگر از شما پرسیده نخواهد شد آیا مطمئن هستید ؟
-                                </div><div className='d-flex justify-content-between'><MDBBtn className='mx-2' color='success' onClick={handleFullyLearnWord}>بله <MDBIcon fas icon="check" />
-                            </MDBBtn><MDBBtn className='mx-2' color='danger' onClick={handleFullyLearnWordCancel}>خیر منصرف شدم <MDBIcon fas icon="times" /></MDBBtn></div>
+                                </div><div className='d-flex justify-content-between'><Button className='mx-2' variant='success' onClick={handleFullyLearnWord}>بله <i fas icon="check" />
+                            </Button><Button className='mx-2' variant='danger' onClick={handleFullyLearnWordCancel}>خیر منصرف شدم <i fas icon="times" /></Button></div>
                             </>}
-                        </MDBCardFooter>
+                        </Card.Footer>
                        
                     </div>
                 )}
-            </MDBCard>
+            </Card>
             
 
 
-        </MDBRow>
+        </Row>
     );
 };
 
