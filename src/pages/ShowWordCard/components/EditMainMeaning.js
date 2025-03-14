@@ -36,10 +36,10 @@ const EditMainMeaning = ({ currentword }) => {
                     <Col className='d-flex justify-content-end'>
                     <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">ویرایش</Tooltip>}>
       
-                        <Button className='rounded-pill ' variant='success' onClick={handleStartEditMainmeaning}> <i class="fa-solid fa-pen-to-square"></i></Button>
+                        <Button className='rounded-pill ' variant='success' onClick={handleStartEditMainmeaning}> <i className="fa-solid fa-pen-to-square"></i></Button>
                         </OverlayTrigger>
                         <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">گزارش خطا</Tooltip>}>
-                        <Button className='rounded-pill ' variant='warning' onClick={handleSendReport}> <i class="fa-sharp fa-regular fa-flag"></i></Button>
+                        <Button className='rounded-pill ' variant='warning' onClick={handleSendReport}> <i className="fa-sharp fa-regular fa-flag"></i></Button>
                         </OverlayTrigger>
                         
  
@@ -54,7 +54,7 @@ const EditMainMeaning = ({ currentword }) => {
 
                     </Col>
                     <Col className='d-flex justify-content-end'>
-                        <Button className='rounded-pill' variant='danger' onClick={handleSaveEditMainmeaning} >ذخیره <i class="fa-solid fa-pen-to-square"></i></Button>
+                        <Button className='rounded-pill' variant='danger' onClick={handleSaveEditMainmeaning} >ذخیره <i className="fa-solid fa-pen-to-square"></i></Button>
                     </Col></Row>
 
             }

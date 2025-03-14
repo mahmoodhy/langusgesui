@@ -1,23 +1,23 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
-import Yourexample from "./components/yourExample";
 import ApiDictionary from "./components/apiDictionary";
-import SimiliarWords from './components/similiarWords';
-import MeaningWord from './components/meaningWord';
+
 import configData from "../../config.json";
 import { useCookies } from 'react-cookie';
 import RightClickArea from '../../../src/Components/RightClickArea';
-import { Button, Col,Row,Alert } from 'react-bootstrap';
-import AudioPlayer from '../../../src/Components/AudioPlayer'
+import { Button, Col, Row, Alert, Container } from 'react-bootstrap';
 
+import FrontCard from './components/FrontCard';
+import BackCard from './components/BackCard';
 
 const ShowWordCard = ({ token, onSearch }) => {
-  const [show, setShow] = useState(true); 
+  const [show, setShow] = useState(true);
   const [isOpen, setIsOpen] = useState(false);
   const [process, setProcess] = useState('');
   const [cookies] = useCookies(['token'])
-
+  const [isFlipped, setFlipped] = useState(false);
+  
   const audioRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const [remainingWordIds, setRemainingWordIds] = useState(() => {
@@ -33,11 +33,9 @@ const ShowWordCard = ({ token, onSearch }) => {
   const [similiarWords, setSimiliarWords] = useState();
   const [Error, setError] = useState('');
   const [messages, setmessage] = useState(null);
-  const [Errors, setErrors] = useState(false);
   const [showFirst, setShowFirst] = useState(false);
 
 
-  const toggleFirst = () => setShowFirst(!showFirst);
 
 
   // Simulate fetching remaining word IDs (replace with actual API call)
@@ -87,7 +85,6 @@ const ShowWordCard = ({ token, onSearch }) => {
       console.error('Error fetching data:', error.message);
     }
 
-    console.log('Starting a new day...');
   };
 
 
@@ -107,6 +104,7 @@ const ShowWordCard = ({ token, onSearch }) => {
 
       wordId = remainingWordIds[randomIndex];
       setCurrentWordIndex(randomIndex);
+      console.log("fetchRandomWord" + wordId + '    ' + randomIndex);
       // Replace with your API call to get a random word
       const response = await axios.post(`${configData.SERVER_URL}/api/Home/WordById/${wordId}`, {}, {
         headers: {
@@ -115,8 +113,8 @@ const ShowWordCard = ({ token, onSearch }) => {
         },
       });
       data = response.data.data;
+      console.log(data);
       setCurrentWord(data); // Assuming the API response contains a 'word' property
-      console.log(data.userBoxid + '   ' + data.word);
     } catch (error) {
       console.error('Error fetching the random word: ' + wordId, error);
       setError('Error fetching the random word ' + wordId + '  ' + data);
@@ -128,7 +126,7 @@ const ShowWordCard = ({ token, onSearch }) => {
     try {
 
 
-
+      console.log("fetchWord" + wordId);
       // Replace with your API call to get a random word
       const response = await axios.post(`${configData.SERVER_URL}/api/Home/WordById/${wordId}`, {}, {
         headers: {
@@ -145,7 +143,6 @@ const ShowWordCard = ({ token, onSearch }) => {
   };
   const fetchSimiliarWords = async (word) => {
     var data;
-    console.log('fetching similiar words of ' + word);
     try {
 
       const response = await axios.post(`${configData.SERVER_URL}/api/Home/GetsimiliarwordsinDataBase/${word}`, {}, {
@@ -169,6 +166,8 @@ const ShowWordCard = ({ token, onSearch }) => {
         headers: {
           'Content-Type': 'application/json',
           Authorization: `Bearer ${token}`,
+
+
         },
       });
       const data = response.data.data;
@@ -200,31 +199,30 @@ const ShowWordCard = ({ token, onSearch }) => {
     sessionStorage.setItem('myremainingWordIds', remainingWordIds);
   }, [remainingWordIds]);
   useEffect(() => {
-    console.log('currentword changed : '+currentword)
-    if (currentword==null || Object.keys(currentword).length === 0)
-    {
+    if (currentword == null || Object.keys(currentword).length === 0) {
       setIsOpen(false);
       setRemainingWordIds([]);
+
       refreshPage();
     }
-    else
-    {
-    sessionStorage.setItem('currentword', JSON.stringify(currentword));
-    fetchSimiliarWords(currentword.word);
+    else {
+      sessionStorage.setItem('currentword', JSON.stringify(currentword));
+      fetchSimiliarWords(currentword.word);
 
-    setLoading(false);
+      setLoading(false);
     }
-    //console.log(currentword);
+    setFlipped(false);
   }, [currentword]);
-  const refreshPage=async() => {
+  const refreshPage = async () => {
     setSimiliarWords(null);
     setLoading(true);
-    
-      if (remainingWordIds.length <2) {
-        await startNewDay(false);
-      }
-      await fetchRemainingWordIds();
-    
+
+    if (remainingWordIds.length < 2) {
+      await startNewDay(false);
+    }
+
+    await fetchRemainingWordIds();
+
   };
   useEffect(() => {
     setSimiliarWords(null);
@@ -246,11 +244,8 @@ const ShowWordCard = ({ token, onSearch }) => {
 
   useEffect(() => {
     const initialize = async () => {
-      console.log('fetchRandomWord . . . ');
-      console.log('remainingWordIds.length , currentword.word  '+remainingWordIds.length +'  ,  '+currentword.word);
       if (remainingWordIds.length > 0) {
         if (currentword.word === undefined || currentword.word === null) {
-          console.log('fetchRandomWord . . . Started');
           await fetchRandomWord();
         }
       }
@@ -305,8 +300,8 @@ const ShowWordCard = ({ token, onSearch }) => {
 
 
   useEffect(() => {
- 
-   
+
+
 
 
 
@@ -319,10 +314,10 @@ const ShowWordCard = ({ token, onSearch }) => {
             playPromise.autoPlay();
             playPromise.pause();
           })
-          .catch(error => {
-            // Auto-play was prevented
-            // Show paused UI.
-          });
+            .catch(error => {
+              // Auto-play was prevented
+              // Show paused UI.
+            });
         }
       }
     }
@@ -334,15 +329,17 @@ const ShowWordCard = ({ token, onSearch }) => {
     setIsOpen(!isOpen);
   };
   const handlesearch = async (word) => {
-    console.log('my word : ' + word);
     onSearch(word);
   }
   const habdlestartdaybyForce = async () => {
     setmessage(null);
-    startNewDay(true);
-    console.log('fetchRemainingWordIds . . . ');
+    await startNewDay(true);
     await fetchRemainingWordIds();
   }
+
+  const  handleFlip =async () => {
+       setFlipped(!isFlipped);
+  };
   return (
     <div>
 
@@ -351,58 +348,64 @@ const ShowWordCard = ({ token, onSearch }) => {
       {!messages && loading && <p>Loading...</p>}
       {messages && <p>{messages}<Button onClick={habdlestartdaybyForce}>لغات بیشتری برای امروز</Button></p>}
       {
-        Error && <p> 
-         <Alert show={show} variant="danger" onClose={() => setShow(false)} dismissible>  
-         خطایی رخ داد : {Error}
-    </Alert>  
-        
+        Error && <p>
+          <Alert show={show} variant="danger" onClose={() => setShow(false)} dismissible>
+            خطایی رخ داد : {Error}
+          </Alert>
+
         </p>}
       <div className='row justify-content-center'>
         {!messages && !loading &&
-          <div>
+          <Container>
             <RightClickArea children={
               <Row>
-                <Col>
+                
+                <Col sm>
+                  <div
+                    className={`flip-card ${isFlipped ? "flipped" : ""
+                      }`}
+                  >
+                    <div className="flip-card-inner">
+                    {!isFlipped &&<div className="flip-card-front">
+                        <div className="card-content">
+                          <FrontCard setCurrentWord={setCurrentWord}
+                            currentword={currentword}
+                            similiarWords={similiarWords} />
+                        </div>
+                        <Button
+                          className="flip-button"
+                          onClick={handleFlip}
+                        >
+                          <span>مشاهده پشت کارت   </span><span>&nbsp;&nbsp;&nbsp;&nbsp;</span><i class="fa-solid fa-retweet"></i>
 
-                  <div className='row'>
-                    <div className='col-6'> <h1 className='text-3xl'>کلمه : {currentword.word}</h1></div>
-                    <div className='col-3'> {currentword.audioFile &&  <AudioPlayer src={`${configData.SERVER_URL}/audioFiles${currentword.audioFile}`} />
-                    // <audio controls autoPlay ref={audioRef}>
-                    //   <source src={`${configData.SERVER_URL}/audioFiles${currentword.audioFile}`} type="audio/mpeg" />
-                    //   Your browser does not support the audio element.
-                    // </audio>
-                    }</div>
-                    <div className='col-3'><span className='text-blue-500'> روز: </span>{currentword.dayNo} ام</div>
+                        </Button>
+                      </div>}
+                      {isFlipped &&
+                      <div className="flip-card-back">
+                        <div className="card-content">
+                          <BackCard setCurrentWord={setCurrentWord}
+                            currentword={currentword}
+                            toggleCollapse={toggleCollapse}
+                            handleLearnWord={handleLearnWord}
+                            handleNotLearnWord={handleNotLearnWord}
+                            isOpen={isOpen} token={token} handleFlip={handleFlip} />
+                        </div>
+                        
+                      </div>}
+                    </div>
                   </div>
 
-                 
 
-
-
-                  <MeaningWord 
-                  setCurrentWord={setCurrentWord} 
-                    currentword={currentword}                    
-                    toggleCollapse={toggleCollapse}
-                    handleLearnWord={handleLearnWord}
-                    handleNotLearnWord={handleNotLearnWord}
-                    isOpen={isOpen} token={token} ></MeaningWord>
-                  {isOpen &&
-                    <div><br></br><br></br><br></br><br></br><br></br></div>
-                  }
-                   <Yourexample currentword={currentword}></Yourexample>
-                  <SimiliarWords similiarWords={similiarWords}></SimiliarWords>
                 </Col>
-                <Col>
 
-
-                 
+                <Col sm>
                   <ApiDictionary meanings={currentword.meanings}></ApiDictionary>
                 </Col>
               </Row>
             } onSearch={handlesearch} />
 
 
-          </div>
+          </Container>
         }
       </div>
     </div>

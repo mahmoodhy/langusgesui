@@ -1,3 +1,4 @@
+
 .App {
   text-align: center;
 }
@@ -107,4 +108,55 @@
   background-color: #f8f9fa;
   border: 1px solid #dee2e6;
   padding: 20px;
+}
+.flip-card {
+  perspective: 1000px;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.5s;
+}
+
+.flip-card.flipped {
+  transform: rotateY(180deg);
+}
+
+.flip-card-inner {
+  width: 100%;
+  /* height: 100%; */
+  transform-style: preserve-3d;
+}
+
+.flip-card-front,
+.flip-card-back {
+  width: 100%;
+  /* height: 100%; */
+  /* position: absolute; */
+  backface-visibility: hidden;
+}
+.flip-card-front {
+  background-color: #d7fbda;
+  color: green;
+}
+
+.flip-card-back {
+  background-color: #fbd7f8;
+  color: blue;
+  transform: rotateY(180deg);
+  /* position: absolute; */
+}
+
+.card-content {
+  padding: 20px;
+  text-align: center;
+}
+
+.flip-button {
+  width: 100%;
+  padding: 10px;
+  font-size: 16px;
+  margin-top: 10px;
+  /* background-color: #f5d9fa; */
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }

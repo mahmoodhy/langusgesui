@@ -2,5 +2,5 @@
     
     "SERVER_URL": "http://5.75.197.85:443",
     "SERVER_URLPublic": "http://localhost:3333",
-    "SERVER_URLDEBUG":"http://localhost:5118"
+    "SERVER_URL_DEBUG":"http://localhost:5118"
   }

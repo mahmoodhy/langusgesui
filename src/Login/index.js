@@ -74,7 +74,7 @@ export default function Login({ setToken }) {
           <Col sm='6'>
   
             <div className='d-flex flex-row ps-5 pt-5'>
-            <i class="fa-solid fa-language me-3 fa-3x" style={{ color: '#709085' }}></i>
+            <i className="fa-solid fa-language me-3 fa-3x" style={{ color: '#709085' }}></i>
               <span className="h1 fw-bold mb-0">جعبه لایتنر</span>
             </div>
   
@@ -91,8 +91,8 @@ export default function Login({ setToken }) {
               onChange={e => setPassword(e.target.value)} />
   
               <Button type="submit" className="mb-4 mx-5 w-100" variant='info' size='lg'>وارد شوید</Button>
-              <p className="small mb-5 pb-lg-3 ms-5"><a class="text-muted" href="#!">رمز عبور را فراموش کردید?</a></p>
-              <p className='ms-5'>تا به حال ثبت نام نکردید ؟ <a href="#!" class="link-info">ثبت نام کنید</a></p>
+              <p className="small mb-5 pb-lg-3 ms-5"><a className="text-muted" href="#!">رمز عبور را فراموش کردید?</a></p>
+              <p className='ms-5'>تا به حال ثبت نام نکردید ؟ <a href="#!" className="link-info">ثبت نام کنید</a></p>
               </Form>}
             </div>
   

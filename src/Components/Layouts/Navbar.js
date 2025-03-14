@@ -27,7 +27,8 @@ function NavBar({ loggedIn,searchWord }) {
         // </Navbar>  
         <Navbar expand='lg' className="bg-body-tertiary mb-3">
             <Container fluid>
-            <Navbar.Brand href="#" className=""> <i class="fa-solid fa-language me-3 fa-3x" style={{ color: '#709085' }}></i></Navbar.Brand>
+            <Navbar.Brand href="#" className=""> <i className="fa-solid fa-language me-1 fa-2x" style={{ color: '#709085' }}></i></Navbar.Brand>
+            <SearchWord className="d-flex justify-content-start" token={cookies.token.token} startword={searchWord} />
 
                 <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} />
                 <Navbar.Offcanvas
@@ -41,14 +42,13 @@ function NavBar({ loggedIn,searchWord }) {
                         </Offcanvas.Title>
                     </Offcanvas.Header>
                     <Offcanvas.Body>
-                        <Nav className="justify-content-start flex-grow-1 pe-3">
+                        <Nav className="justify-content-end flex-grow-1 pe-3">
                             <Nav.Link href="/">خانه</Nav.Link>
                             <Nav.Link href="/statistics">آمار</Nav.Link>
                            
 
                         </Nav>
-                        <SearchWord className="d-flex" token={cookies.token.token} startword={searchWord}/>
-                        <NavDropdown title={<i class="fa-regular fa-user fa-2x"></i>} id="collapsible-nav-dropdown" className=' mx-5'>
+                        <NavDropdown title={<i className="fa-regular fa-user fa-2x"></i>} id="collapsible-nav-dropdown" className=' mx-5'>
                                 <NavDropdown.Item href="#action/3.2">
                                 <Welcome loggedIn={loggedIn}></Welcome>
                                 </NavDropdown.Item>

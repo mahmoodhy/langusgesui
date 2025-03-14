@@ -24,7 +24,11 @@ const AImeaningWord = ({ currentword, token }) => {
             });
             const data = response.data.data;
             setMeanings(data)
+<<<<<<< HEAD
             console.log(data);
+=======
+            console.log("GetAIMeanings : ",data);
+>>>>>>> bbcffe301abcd411202922be5ac52ff7d098590b
             setLoading(false)
         } catch (error) {
             console.error('Error FindsimiliarWords:', error);

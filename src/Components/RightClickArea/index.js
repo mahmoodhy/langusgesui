@@ -13,12 +13,12 @@ const RightClickArea = ({ children, onSearch }) => {
     ];
 
     const handleContextMenu = (event) => {
-       event.preventDefault();
+      
         const selection = window.getSelection().toString();
         const hasOnlyEnglishCharacters = /^[A-Za-z0-9 ]+$/.test(selection);
 
         if (selection.trim() !== '' && hasOnlyEnglishCharacters) {
-
+            event.preventDefault();
             setSelectedText(selection);
             if (window.innerWidth - event.pageX  < 200)
                 setMenuPosition({ x: event.pageX -  200, y: event.pageY });
