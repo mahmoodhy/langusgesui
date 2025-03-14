@@ -11,20 +11,7 @@ const SearchWord = ({ token, startword }) => {
   const [result, setResult] = useState(null);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const getFromTranslator = async (word) => {
-    try {
-      const response = await axios.post(`${configData.SERVER_URL}/api/Home/GetTranslation/${word}`, {}, {
-        headers: {
-          'Content-Type': 'application/json',
-          Authorization: `Bearer ${token}`,
-        },
-      });
-      return response.data;
-    } catch (error) {
-      console.error('Error getFromTranslator:', error);
-      return null;
-    }
-  };
+ 
   const FindWord = async () => {
     try {
       const response = await axios.post(`${configData.SERVER_URL}/api/Home/FindSearchedWord?word=${searchWord}`, {}, {
@@ -110,7 +97,7 @@ const SearchWord = ({ token, startword }) => {
 
 
   return (
-    <div className='p-1 w-75'>
+    <div className='p-1 w-50'>
       <Row>
         <Row>
           <Form.Group className='d-flex'>
@@ -118,10 +105,10 @@ const SearchWord = ({ token, startword }) => {
               onChange={e => setSearchWord(e.target.value)} onKeyDown={handleKeyDown} />
               
                  <Button  variant='outline-secondary'  className="search-icon rounded-pill" size='sm' onClick={handlesearch}>
-            <i class="fa-solid fa-magnifying-glass"></i>
+            <i className="fa-solid fa-magnifying-glass"></i>
             </Button>
             <Button  variant='outline-danger'  className="close-icon rounded-pill" size='sm' onClick={handleClear}>
-            <i class="fa-solid fa-ban"></i>
+            <i className="fa-solid fa-ban"></i>
             </Button>
            
             {result &&

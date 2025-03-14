@@ -56,17 +56,17 @@ const YourExample = ({ currentword }) => {
                     <Card.Body>
                         <Card.Text className="text-start"><Form.Text  value={inputValue} onChange={e => setInputValue(e.target.value)} /></Card.Text>
                     </Card.Body>
-                    <Card.Footer><Button onClick={saveMyExample} color='success'>ذخیره</Button><Button onClick={cancelSaving} color='danger'>انصراف</Button></Card.Footer>
+                    <Card.Footer><Button onClick={saveMyExample} variant='success'>ذخیره</Button><Button onClick={cancelSaving} variant='danger'>انصراف</Button></Card.Footer>
                 </Card>
             }
            <div className="text-center"> 
             {!inputValue && !isEditing &&
-                <Button outline rounded className='mt-auto' color='info' onClick={addMyExample}>مثال خودتان را اضافه کنید</Button>
+                <Button outline="true" rounded="true" className='mt-auto' variant='info' onClick={addMyExample}>مثال خودتان را اضافه کنید</Button>
             }
              {!inputValue && isEditing && <>
                 <Form.Control  value={inputValue} onChange={e => setInputValue(e.target.value)} />
 
-                <Button outline rounded className='mt-auto' color='info' onClick={saveMyExample}>ذخیره</Button>
+                <Button outline="true" rounded="true" className='mt-auto' variant='info' onClick={saveMyExample}>ذخیره</Button>
                 </>
             }
             </div>

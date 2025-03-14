@@ -20,7 +20,7 @@ const PlayhtAudioPlayer = ({ word ,token}) => {
     };
         const fetchAudio = async () => {
         try{
-        const response =await  axios.post(`${configData.SERVER_URL}/api/Home/GetaudioFileFrom_Playht?word=${word}`, {}, {
+        const response =await  axios.post(`${configData.SERVER_URL}/api/Home/GetaudioFileFrom_AI?word=${word}`, {}, {
             headers: {
               'Content-Type': 'application/json',
               'accept': 'audio/mpeg',
@@ -58,8 +58,8 @@ const PlayhtAudioPlayer = ({ word ,token}) => {
             <audio ref={audioRef}  onEnded={handleEnded}/>
             <button onClick={handlePlayPause}>
                 {isPlaying ?
-                 <i class="fa-solid fa-volume-high fa-3x" style={{ color: '#3366ff' }}></i>:
-                  <i class="fa-solid fa-volume-high fa-3x" style={{ color: '#666699'}}></i>}
+                 <i className="fa-solid fa-volume-high fa-3x" style={{ color: '#3366ff' }}></i>:
+                  <i className="fa-solid fa-volume-high fa-3x" style={{ color: '#666699'}}></i>}
             </button>
         </div>
                 }</>

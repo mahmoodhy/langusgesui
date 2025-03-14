@@ -53,7 +53,7 @@ const EditYourMeaning = ({ currentword }) => {
                     <Col className='d-flex justify-content-end'>
                     <OverlayTrigger overlay={<Tooltip>ویرایش</Tooltip>}>
 
-                            <Button className='rounded-pill ' variant='success' onClick={handleStartEditMainmeaning}> <i class="fa-solid fa-pen-to-square"></i></Button>
+                            <Button className='rounded-pill ' variant='success' onClick={handleStartEditMainmeaning}> <i className="fa-solid fa-pen-to-square"></i></Button>
                             </OverlayTrigger>
 
                     </Col></Row>
@@ -69,11 +69,11 @@ const EditYourMeaning = ({ currentword }) => {
                     <Col className='d-flex justify-content-end'>
                     <OverlayTrigger overlay={<Tooltip>ذخیره</Tooltip>}>
                         <Button className='rounded-pill' variant='info' onClick={handleSaveEditmeaning} >
-                        <i class="fa-solid fa-floppy-disk"></i>
+                        <i className="fa-solid fa-floppy-disk"></i>
                         </Button>
                         </OverlayTrigger><OverlayTrigger overlay={<Tooltip>انصراف</Tooltip>}>
                             <Button className='rounded-pill ' variant='danger' onClick={handleCancelSave}> 
-                            <i class="fa-solid fa-ban"></i>
+                            <i className="fa-solid fa-ban"></i>
                                 </Button>
                                 </OverlayTrigger>
                     </Col></Row>
